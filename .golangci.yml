@@ -42,9 +42,10 @@ linters-settings:
 linters:
   enable-all: true
   disable:
-    - maligned
-    - prealloc
     - gochecknoglobals
+    - gochecknoinits
+    - errcheck
+
 
 run:
   skip-dirs:
