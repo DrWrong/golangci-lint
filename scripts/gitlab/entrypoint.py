@@ -3,7 +3,7 @@ import argparse
 import json
 
 from gitlab_comment import comment_merge_request
-from comment_merge_request import merge_request_discussion
+from comment_merge_request import discussion_when_merge_requests
 
 parser = argparse.ArgumentParser(description='Gitlab merge rquest notes')
 parser.add_argument("--project_id", dest="project_id", help="project id")
@@ -21,9 +21,8 @@ source_branch = args.source_branch.replace('remotes/origin/', '')
 
 with open(args.file, encoding="utf-8") as f:
     data = json.load(f)
-
 if args.merge_request_iid:
     merge_request_discussion(args.project_id, args.merge_request_iid, data)
     exit(0)
 
-comment_merge_request(args.project_id, source_branch, data)
+discussion_when_merge_requests(args.project_id, source_branch, data)

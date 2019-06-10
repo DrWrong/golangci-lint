@@ -4,15 +4,7 @@ gl = gitlab.Gitlab('https://gitlab.p1staff.com', private_token="Exdyq6QekepCJMyQ
 # URL_PREFIX = 'https://gitlab.p1staff.com/api/v4'
 # TOKEN = ""
 
-def merge_request_discussion(project_id, merge_request_iid, report):
-    '''
-    Disccussion issues
-    '''
-    if len(report['Issues']) <= 0:
-        print("Do Not have any issues")
-
-    project = gl.projects.get(project_id)
-    mr = project.mergerequests.get(merge_request_iid)
+def process_issuses(mr, report):
     diff = mr.diffs.list()[0]
     for issue in report['Issues']:
         data = {
@@ -26,6 +18,32 @@ def merge_request_discussion(project_id, merge_request_iid, report):
             },
             'body': issue['Text'],
         }
-        print(data)
         resp = mr.discussions.create(data)
         print(resp)
+
+
+def merge_request_discussion(project_id, merge_request_iid, report):
+    '''
+    Disccussion issues
+    '''
+    if len(report['Issues']) <= 0:
+        print("Do Not have any issues")
+        return
+
+    project = gl.projects.get(project_id)
+    mr = project.mergerequests.get(merge_request_iid)
+    process_issuses(mr, report)
+
+def discussion_when_merge_requests(project_id, source_branch, report):
+    if len(report['Issues']) <= 0:
+        print("Do Not have any issues")
+        return
+    project = gl.projects.get(project_id)
+    mrs = project.mergerequests.list(
+        state= 'opened',
+        source_branch= source_branch,
+    )
+
+    for mr in mrs:
+        print(mr)
+        process_issuses(mr, report)
