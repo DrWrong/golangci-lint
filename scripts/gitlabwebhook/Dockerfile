@@ -4,6 +4,7 @@ FROM python:3
 RUN pip install bottle
 RUN pip install requests
 RUN pip install gunicorn
+RUN pip install gevent
 
 COPY webhook.py /
 CMD [ "python" ,  "webhook.py" ]

@@ -3,7 +3,7 @@ import argparse
 import json
 
 from gitlab_comment import comment_merge_request
-from comment_merge_request import discussion_when_merge_requests
+from comment_merge_request import discussion_when_merge_requests, merge_request_discussion
 
 parser = argparse.ArgumentParser(description='Gitlab merge rquest notes')
 parser.add_argument("--project_id", dest="project_id", help="project id")
