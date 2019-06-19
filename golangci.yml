@@ -16,6 +16,8 @@ linters-settings:
     locale: US
   lll:
     line-length: 180
+  errcheck:
+    ignore: github.com/gin-gonic/gin:Error|SetMeta,fmt:.*,io/ioutil:^Read.*,github.com/go-kit/kit/log:Log
 linters:
   enable-all: true
   disable:
