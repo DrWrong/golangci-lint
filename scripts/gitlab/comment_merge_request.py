@@ -28,6 +28,7 @@ def process_issuses(mr, report):
                 },
                 'body': body,
             }
+            print(data)
             resp = mr.discussions.create(data)
             print(resp)
         else:
